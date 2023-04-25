@@ -18,5 +18,7 @@ public class Question3
 
         System.out.println("The square of " + num + " is " + square);
     
+    in.close();
+
   }
 }
