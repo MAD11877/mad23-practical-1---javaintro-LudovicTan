@@ -25,35 +25,43 @@ public class Question5 {
      * Hint: Use a loop to get input. Use another 2 loops to find the mode
      */
         Scanner in = new Scanner(System.in);
-        
         int n = in.nextInt();
 
         int[] arr = new int[n];
         for(int i=0; i<n; i++){
-            System.out.print("Enter integer " + (i+1) + ": ");
             arr[i] = in.nextInt();
         }
-
-        Map<Integer, Integer> freqMap = new HashMap<Integer, Integer>();
-        for(int i=0; i<n; i++){
-            if(freqMap.containsKey(arr[i])){
-                freqMap.put(arr[i], freqMap.get(arr[i])+1);
-            }
-            else{
-                freqMap.put(arr[i], 1);
-            }
-        }
-
-        int maxFreq = 0;
-        int mode = 0;
-        for(Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
-            if(entry.getValue() > maxFreq){
-                maxFreq = entry.getValue();
-                mode = entry.getKey();
+        int temp = 0;
+        for (int i = 0; i < n; i++){
+            for(int j = 1; j < n - i; j++){
+                if(arr[j-1]>arr[j]){
+                    temp = arr[j-1];
+                    arr[j-1] = arr[j];
+                    arr[j] = temp;
+                }
             }
         }
+        int mode = arr[0];
+        int maxCount = 1;
+        int currentCount = 1;
 
-        System.out.println("Mode: " + mode);
+        for (int i = 1; i < n; i++) {
+            if (arr[i] == arr[i - 1]) {
+                currentCount++;
+            } 
+            else if (currentCount > maxCount) {
+                maxCount = currentCount;
+                    mode = arr[i - 1];
+                    currentCount = 1;
+            } 
+        }
+
+        if (currentCount > maxCount) {
+            maxCount = currentCount;
+            mode = arr[n - 1];
+        }
+
+        System.out.println(mode);
         in.close();
     }
 }
