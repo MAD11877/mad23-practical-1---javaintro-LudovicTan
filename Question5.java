@@ -55,5 +55,6 @@ public class Question5 {
         }
 
         System.out.println("Mode: " + mode);
+        in.close();
     }
 }
